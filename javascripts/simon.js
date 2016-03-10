@@ -21,3 +21,13 @@ function lightUp(idx) {
     quad.removeClass("on")
   }, 300)
 };
+
+$("#on_off_switch").on("click", function() {
+  console.log("witch")
+  $("#switch").toggleClass("switch_on");
+});
+
+$("#start_button, #strict_button").on("click", function() {
+  $(this).toggleClass('button_on');
+  console.log("clock");
+});
