@@ -171,23 +171,23 @@ html, body, main {
 }
 
 #quad_1 {
-  background: green;
+  background: #34a843;
   border-top-left-radius: 100%;
 }
 
 #quad_2 {
-  background: red;
+  background: #bc3e3e;
   border-top-right-radius: 100%;
 
 }
 
 #quad_3 {
-  background: yellow;
+  background: #c4bd38;
   border-bottom-left-radius: 100%;
 }
 
 #quad_4 {
-  background: blue;
+  background: #6757bf;
   border-bottom-right-radius: 100%;
 }
 

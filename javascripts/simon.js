@@ -1,6 +1,4 @@
-$(".quad").on("click", function() {
-  lightUp($(this).attr("data-id"));  
-})
+
 
 function Game() {
 }
@@ -13,7 +11,11 @@ Game.prototype.init = function() {
 }
 
 Game.prototype.clickQuad = function(id) {
-  $("#quad_" + id ).click();
+  var quad = $("#quad_" + id );
+  quad.addClass('on');
+  setTimeout(function(){
+    quad.removeClass("on");
+  }, 400);
 }
 
 Game.prototype.updateCountBox = function() {
@@ -59,11 +61,19 @@ function lightUp(idx) {
 };
 
 $("#on_off_switch").on("click", function() {
-  console.log("witch")
   $("#switch").toggleClass("switch_on");
 });
 
 $("#start_button, #strict_button").on("click", function() {
   $(this).toggleClass('button_on');
-  console.log("clock");
 });
+
+$(".quad").on("mousedown", function() {
+  $(this).addClass("on");  
+});
+
+$(".quad").on("mouseup", function() {
+  $(this).removeClass("on");  
+});
+
+
