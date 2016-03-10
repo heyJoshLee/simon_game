@@ -2,6 +2,15 @@ $(".quad").on("click", function() {
   lightUp($(this).attr("data-id"));  
 })
 
+function Game() {
+
+}
+
+Game.prototype.initialize = function() {
+  console.log("new game")
+}
+
+var game = new Game();
 
 
 

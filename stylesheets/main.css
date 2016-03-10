@@ -15,7 +15,7 @@ html, body, main {
 
 .quad {
   position: relative;
-  width: 49%;
+  width: 200px;
   margin: 0;
   padding: 0;
   display: inline-block;
@@ -26,19 +26,24 @@ html, body, main {
 
 #quad_1 {
   background: green;
+  border-top-left-radius: 100%;
 }
 
 #quad_2 {
   background: red;
+  border-top-right-radius: 100%;
+
 }
 
 #quad_3 {
   background: yellow;
-
+  border-bottom-left-radius: 100%;
 }
 
 #quad_4 {
   background: blue;
+  border-bottom-right-radius: 100%;
+
 }
 
 .on {
