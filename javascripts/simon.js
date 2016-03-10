@@ -3,15 +3,51 @@ $(".quad").on("click", function() {
 })
 
 function Game() {
-
 }
 
-Game.prototype.initialize = function() {
-  console.log("new game")
+Game.prototype.init = function() {
+  console.log("new game");
+  this.sequence = [];
+  this.$count_box = $("#count_display");
+  this.updateCountBox();
+}
+
+Game.prototype.clickQuad = function(id) {
+  $("#quad_" + id ).click();
+}
+
+Game.prototype.updateCountBox = function() {
+  this.$count_box.html(this.sequence.length);
+}
+
+Game.prototype.addPress = function() {
+  var num = Math.floor(Math.random() * 4) + 1;
+  // this.clickQuad(num);
+  this.sequence.push(num);
+  this.updateCountBox();
+}
+
+Game.prototype.playSequence = function() {
+  var i = 0,
+      self = this;
+  function nextButton() {
+    if (i < self.sequence.length) {
+      self.clickQuad(self.sequence[i]);
+      i++;
+
+      setTimeout(nextButton, 800);
+    }
+  }
+  nextButton();
+}
+
+Game.prototype.startTurn = function() {
+  this.addPress();
+  this.playSequence();
 }
 
 var game = new Game();
-
+game.init();
 
 
 function lightUp(idx) {
