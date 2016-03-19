@@ -6,6 +6,13 @@ html, body, main {
   width: 100%;
   padding: 0;
   margin: 0;
+  background: url("http://fastsignsinla.co/wp-content/uploads/2015/11/tabletop-background-with-table-top-photo-background-wood-table-top-background-wood-table.jpg") 0 0 no-repeat;
+  background-size: cover;
+}
+
+a {
+  margin-left: 10px;
+  color: white;
 }
 
 #top_row,
@@ -22,15 +29,18 @@ html, body, main {
   position: relative;
   margin: auto;
   text-align: center;
-  width: 900px;
+  width: 830px;
+  padding: 30px;
+  height: 800px;
+  border-radius: 100%;
   background: #2d2b2b;
 
 }
 
 #menu_area {
   position: absolute;
-  top: 200px;
-  left: 260px;
+  top: 240px;
+  left: 245px;
   width: 400px;
   border-radius: 100%;
   height: 400px;

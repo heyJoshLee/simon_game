@@ -11,6 +11,8 @@ Game.prototype.init = function() {
   this.playerPresses = [];
   this.canInput = false;
   this.correct = true;
+  this.speed = 800;
+  this.timer;
 }
 
 Game.prototype.clickQuad = function(id) {
@@ -37,10 +39,14 @@ Game.prototype.playSequence = function() {
       self = this;
   function nextButton() {
     if (i < self.sequence.length) {
+      console.log(self.sequence[i]);
       self.clickQuad(self.sequence[i]);
+      console.log("audio" + self.sequence[i]);
+
+      self["audio" + +self.sequence[i]].play();
       i++;
 
-      setTimeout(nextButton, 800);
+      setTimeout(nextButton, game.speed);
     } else {
       self.canInput = true;
     }
@@ -50,8 +56,21 @@ Game.prototype.playSequence = function() {
 
 Game.prototype.startTurn = function() {
   game.canInput = false;
+
+ if(this.sequence.length > 19 ){
+  alert("You Win!");
+  this.init();
+ }
+
   this.playerPresses = [];
   if (this.correct) {
+    if (this.sequence.length === 5) {
+      this.speed -= 100;
+    } else if (this.sequence.length  === 9) {
+      this.speed -= 100;
+    } else if (this.sequence.length === 13){
+      this.speed -= 100;
+    }
     this.addPress();
   }
   var self = this;
@@ -62,6 +81,13 @@ Game.prototype.startTurn = function() {
 }
 
 var game = new Game();
+game.audio1 = new Audio("https://s3.amazonaws.com/freecodecamp/simonSound4.mp3");
+game.audio2 = new Audio("https://s3.amazonaws.com/freecodecamp/simonSound3.mp3");
+game.audio3 = new Audio("https://s3.amazonaws.com/freecodecamp/simonSound2.mp3");
+game.audio4 = new Audio("https://s3.amazonaws.com/freecodecamp/simonSound1.mp3");
+game.audio_error = new Audio("http://www.pacdv.com/sounds/interface_sound_effects/beep-5.wav");
+
+
 game.init();
 game.strict = false;
 
@@ -102,8 +128,12 @@ $(".quad").on("mousedown", function() {
     var idx = game.playerPresses.length - 1;
     if (game.playerPresses[idx] === game.sequence[idx]) {
       game.correct = true;
+      game["audio" + id].play();
+    
+
     } else {
       game.correct = false;
+      game.audio_error.play();
       game.canInput = false;
       if (game.strict) {
          game.init();
