@@ -8,6 +8,10 @@ Game.prototype.init = function() {
   this.sequence = [];
   this.$count_box = $("#count_display");
   this.updateCountBox();
+  this.playerPresses = [];
+  this.canInput = false;
+  this.correct = true;
+  this.strict = false;
 }
 
 Game.prototype.clickQuad = function(id) {
@@ -24,9 +28,9 @@ Game.prototype.updateCountBox = function() {
 
 Game.prototype.addPress = function() {
   var num = Math.floor(Math.random() * 4) + 1;
-  // this.clickQuad(num);
   this.sequence.push(num);
   this.updateCountBox();
+  console.log("Added: " + num);
 }
 
 Game.prototype.playSequence = function() {
@@ -38,14 +42,24 @@ Game.prototype.playSequence = function() {
       i++;
 
       setTimeout(nextButton, 800);
+    } else {
+      self.canInput = true;
     }
   }
   nextButton();
 }
 
 Game.prototype.startTurn = function() {
-  this.addPress();
-  this.playSequence();
+  game.canInput = false;
+  this.playerPresses = [];
+  if (this.correct) {
+    this.addPress();
+  }
+  var self = this;
+  setTimeout(function() {
+    self.playSequence();
+
+  }, 1000);
 }
 
 var game = new Game();
@@ -69,7 +83,25 @@ $("#start_button, #strict_button").on("click", function() {
 });
 
 $(".quad").on("mousedown", function() {
-  $(this).addClass("on");  
+  if (game.canInput) {
+    $(this).addClass("on");
+    var id = +$(this).attr("data-id");
+    game.playerPresses.push(id);
+    var idx = game.playerPresses.length - 1;
+    if (game.playerPresses[idx] === game.sequence[idx]) {
+      game.correct = true;
+    } else {
+      game.correct = false;
+      game.canInput = false;
+      game.startTurn();
+    }
+    if (game.playerPresses.length === game.sequence.length) {
+      game.canInput = false;
+      if (game.correct) {
+        game.startTurn();
+      }
+    }
+  }
 });
 
 $(".quad").on("mouseup", function() {
