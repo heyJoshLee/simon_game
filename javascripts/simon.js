@@ -11,7 +11,6 @@ Game.prototype.init = function() {
   this.playerPresses = [];
   this.canInput = false;
   this.correct = true;
-  this.strict = false;
 }
 
 Game.prototype.clickQuad = function(id) {
@@ -64,6 +63,7 @@ Game.prototype.startTurn = function() {
 
 var game = new Game();
 game.init();
+game.strict = false;
 
 
 function lightUp(idx) {
@@ -76,10 +76,22 @@ function lightUp(idx) {
 
 $("#on_off_switch").on("click", function() {
   $("#switch").toggleClass("switch_on");
+  game.strict = !game.strict;
+  console.log(game.strict);
 });
 
-$("#start_button, #strict_button").on("click", function() {
+$("#strict_button").on("click", function() {
   $(this).toggleClass('button_on');
+});
+
+$("#strict_button").on("click", function() {
+  game.strict = !game.strict;
+  console.log(game.strict)
+});
+
+$("#start_button").on("click", function() {
+  game.init();
+  game.startTurn();
 });
 
 $(".quad").on("mousedown", function() {
@@ -93,7 +105,11 @@ $(".quad").on("mousedown", function() {
     } else {
       game.correct = false;
       game.canInput = false;
-      game.startTurn();
+      if (game.strict) {
+         game.init();
+      } else {
+        game.startTurn();
+      }
     }
     if (game.playerPresses.length === game.sequence.length) {
       game.canInput = false;
